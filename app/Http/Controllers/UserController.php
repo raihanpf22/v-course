@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Kursus;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Seesion;
@@ -31,10 +32,17 @@ class UserController extends Controller
         return redirect() ->back();
         
     }
+    public function logout()
+    {
+        # code...
+        Auth::logout();
+        return redirect() ->intended('/');
+    }
     public function main()
     {
         # code...
-        return view('user.main');
+        $kursus = Kursus::all();
+        return view('user.main', compact('kursus'));
     }
     /**
      * Display a listing of the resource.
@@ -97,6 +105,8 @@ class UserController extends Controller
     public function show($id)
     {
         //
+        $kursus = Kursus::find($id);
+        return view('user.info', compact('kursus'));
     }
 
     /**
@@ -108,6 +118,8 @@ class UserController extends Controller
     public function edit($id)
     {
         //
+        $user = User::find($id);
+        return view('user.edit', compact('user'));
     }
 
     /**
@@ -120,6 +132,15 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
+        
+        $user = User::find($id);
+        
+        $user ->mahasiswa_nama = $request->input('mahasiswa_nama');
+        $user -> mahasiswa_kelas = $request->input('mahasiswa_kelas');
+        $user-> password = Hash::make($request->input('password'));
+        $user -> update();
+
+        return redirect() ->intended('main');
     }
 
     /**

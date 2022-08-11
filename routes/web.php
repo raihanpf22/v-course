@@ -23,7 +23,12 @@ Route::get('/user', [UserController::class, 'create'])->name('user');
 Route::post('user/register', [UserController::class, 'store']) -> name('user-register');
 Route::get('/login', [UserController::class, 'pageLogin'])->name('user-pageLogin');
 Route::post('/login', [UserController::class, 'login'])->name('user-login');
+Route::get('/user/logout', [UserController::class, 'logout'])->name('userLogout');
+Route::get('/user/{id}', [UserController::class, 'edit'])->name('user-edit');
+Route::put('/user/{id}', [UserController::class, 'update'])->name('user-update');
+
 Route::get('/main',[UserController::class, 'main'])->name('main');
+Route::get('/main/{id}',[UserController::class, 'show'])->name('main-show');
 
 // Admin
 Route::get('/admin/login', [AdminController::class, 'pageLogin'])->name('admin-login');

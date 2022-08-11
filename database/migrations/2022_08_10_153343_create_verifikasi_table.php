@@ -19,6 +19,7 @@ class CreateVerifikasiTable extends Migration
             $table->string('verifikasi_npm');
             $table->string('verifikasi_kursus_nama');
             $table->string('verifikasi_jadwal_waktu');
+            $table->string('status');
             $table->timestamps();
         });
     }
